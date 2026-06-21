@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Student Utility Hub</title>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-260P8EJXTL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-260P8EJXTL');
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
+/*<![CDATA[*/
+/* ================================================
+   DESIGN SYSTEM — VARIABLES & RESET
+================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:        #07090f;
+  --bg2:       #0c0f1a;
+  --surface:   #111420;
+  --card:      #161a27;
+  --card2:     #1c2133;
+  --border:    #232840;
+  --border2:   #2d3550;
+  --cyan:      #00d4ff;
+  --cyan-dim:  rgba(0,212,255,0.12);
+  --gold:      #ffc94d;
+  --gold-dim:  rgba(255,201,77,0.12);
+  --green:     #00e5a0;
+  --green-dim: rgba(0,229,160,0.10);
+  --red:       #ff4d6d;
+  --red-dim:   rgba(255,77,109,0.10);
+  --violet:    #a78bfa;
+  --violet-dim:rgba(167,139,250,0.10);
+  --text:      #e2e8f8;
+  --text2:     #8892b0;
+  --text3:     #4a5280;
+  --font:      'Plus Jakarta Sans',sans-serif;
+  --mono:      'JetBrains Mono',monospace;
+  --r:         12px;
+  --r2:        18px;
+  --sb:        270px;
+  --ease:      cubic-bezier(.4,0,.2,1);
+  --t:         0.2s;
+}
+
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font);
+  min-height:100vh;
+  display:flex;
+  font-size:15px;
+  line-height:1.6;
+}
+
+/* noise texture removed for Blogger compatibility */
+
+/* ================================================
+   SIDEBAR
+================================================ */
+#sidebar{
+  width:var(--sb);
+  min-height:100vh;
+  background:var(--bg2);
+  border-right:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  position:fixed;
+  top:0;left:0;
+  z-index:100;
+  transition:transform .3s var(--ease);
+}
+
+.sb-brand{
+  padding:28px 20px 22px;
+  border-bottom:1px solid var(--border);
+  position:relative;
+}
+
+.sb-brand-dot{
+  width:8px;height:8px;
+  border-radius:50%;
+  background:var(--cyan);
+  display:inline-block;
+  margin-right:6px;
+  box-shadow:0 0 8px var(--cyan);
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%,100%{opacity:1;box-shadow:0 0 8px var(--cyan);}
+  50%{opacity:.6;box-shadow:0 0 16px var(--cyan);}
+}
+
+.sb-brand h1{
+  font-size:1.05rem;
+  font-weight:800;
+  color:var(--text);
+  letter-spacing:-0.02em;
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+
+.sb-brand p{
+  font-size:0.68rem;
+  color:var(--text3);
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  margin-top:4px;
+  font-family:var(--mono);
+}
+
+.sb-search{
+  padding:14px 16px;
+  border-bottom:1px solid var(--border);
+}
+
+.sb-search-wrap{
+  position:relative;
+}
+
+.sb-search-wrap svg{
+  position:absolute;
+  left:10px;top:50%;
+  transform:translateY(-50%);
+  color:var(--text3);
+  width:14px;height:14px;
+}
+
+.sb-search input{
+  width:100%;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:8px;
+  color:var(--text);
+  font-family:var(--mono);
+  font-size:0.75rem;
+  padding:9px 12px 9px 32px;
+  outline:none;
+  transition:border-color var(--t) var(--ease);
+}
+.sb-search input:focus{border-color:var(--cyan);}
+.sb-search input::placeholder{color:var(--text3);}
+
+/* Nav */
+.sb-nav{
+  flex:1;
+  overflow-y:auto;
+  padding:10px 10px 20px;
+}
+
+.sb-label{
+  font-size:0.62rem;
+  font-family:var(--mono);
+  color:var(--text3);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  padding:10px 10px 6px;
+}
+
+.nav-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:9px;
+  cursor:pointer;
+  font-size:0.82rem;
+  font-weight:500;
+  color:var(--text2);
+  transition:background var(--t),color var(--t);
+  margin-bottom:2px;
+  user-select:none;
+}
+
+.nav-item:hover{background:var(--surface);color:var(--text);}
+.nav-item.active{
+  background:var(--cyan-dim);
+  color:var(--cyan);
+}
+
+.nav-icon{
+  width:28px;height:28px;
+  border-radius:7px;
+  display:grid;place-items:center;
+  font-size:.85rem;
+  flex-shrink:0;
+  background:var(--card);
+}
+
+.nav-item.active .nav-icon{background:rgba(0,212,255,.18);}
+
+/* Sidebar footer */
+.sb-footer{
+  padding:16px 20px;
+  border-top:1px solid var(--border);
+  font-size:0.68rem;
+  color:var(--text3);
+  font-family:var(--mono);
+}
+
+/* ================================================
+   MAIN AREA
+================================================ */
+#main{
+  margin-left:var(--sb);
+  flex:1;
+  padding:44px 42px;
+  position:relative;
+  z-index:1;
+  min-height:100vh;
+}
+
+/* ================================================
+   WELCOME SCREEN
+================================================ */
+#welcome{
+  min-height:85vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  gap:0;
+}
+
+.welcome-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--cyan-dim);
+  border:1px solid rgba(0,212,255,.2);
+  border-radius:100px;
+  padding:6px 16px;
+  font-size:0.72rem;
+  font-family:var(--mono);
+  color:var(--cyan);
+  margin-bottom:24px;
+  letter-spacing:.04em;
+}
+
+#welcome h2{
+  font-size:clamp(2rem,4vw,3.2rem);
+  font-weight:800;
+  letter-spacing:-0.03em;
+  line-height:1.15;
+  margin-bottom:16px;
+}
+
+#welcome h2 .hi{color:var(--cyan);}
+
+#welcome p{
+  color:var(--text2);
+  font-size:0.92rem;
+  max-width:440px;
+  line-height:1.8;
+  margin-bottom:36px;
+}
+
+.welcome-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:12px;
+  width:100%;
+  max-width:680px;
+}
+
+.welcome-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--r2);
+  padding:20px 16px;
+  cursor:pointer;
+  transition:border-color var(--t),transform var(--t),background var(--t);
+  text-align:left;
+}
+
+.welcome-card:hover{
+  border-color:var(--cyan);
+  background:var(--card2);
+  transform:translateY(-3px);
+}
+
+.wc-icon{font-size:1.4rem;margin-bottom:10px;display:block;}
+.wc-name{font-size:0.8rem;font-weight:600;color:var(--text);}
+.wc-desc{font-size:0.69rem;color:var(--text3);margin-top:3px;}
+
+/* ================================================
+   SECTION LAYOUT
+================================================ */
+.calc-section{display:none;animation:fadeUp .3s var(--ease);}
+.calc-section.active{display:block;}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(18px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* Page header */
+.page-header{
+  display:flex;
+  align-items:flex-start;
+  gap:18px;
+  margin-bottom:32px;
+  padding-bottom:24px;
+  border-bottom:1px solid var(--border);
+}
+
+.ph-icon{
+  width:52px;height:52px;
+  border-radius:14px;
+  display:grid;place-items:center;
+  font-size:1.5rem;
+  flex-shrink:0;
+  border:1px solid var(--border2);
+}
+
+.ph-cyan  {background:var(--cyan-dim);border-color:rgba(0,212,255,.25);}
+.ph-gold  {background:var(--gold-dim);border-color:rgba(255,201,77,.25);}
+.ph-green {background:var(--green-dim);border-color:rgba(0,229,160,.25);}
+.ph-violet{background:var(--violet-dim);border-color:rgba(167,139,250,.25);}
+.ph-red   {background:var(--red-dim);border-color:rgba(255,77,109,.25);}
+
+.ph-text h2{
+  font-size:1.55rem;
+  font-weight:800;
+  letter-spacing:-0.02em;
+  margin-bottom:4px;
+}
+
+.ph-text p{
+  color:var(--text2);
+  font-size:0.82rem;
+  line-height:1.6;
+  max-width:520px;
+}
+
+/* ================================================
+   CONCEPT BOX
+================================================ */
+.concept-box{
+  background:linear-gradient(135deg,var(--card) 0%,var(--card2) 100%);
+  border:1px solid var(--border2);
+  border-radius:var(--r2);
+  padding:22px 24px;
+  margin-bottom:24px;
+  position:relative;
+  overflow:hidden;
+}
+
+.concept-box::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--cyan),transparent);
+}
+
+.concept-header{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:12px;
+}
+
+.concept-badge{
+  font-size:0.62rem;
+  font-family:var(--mono);
+  color:var(--cyan);
+  background:var(--cyan-dim);
+  border:1px solid rgba(0,212,255,.2);
+  padding:3px 10px;
+  border-radius:100px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+.concept-box h3{
+  font-size:0.82rem;
+  font-weight:700;
+  color:var(--cyan);
+  margin:0;
+}
+
+.concept-box p{
+  font-size:0.8rem;
+  color:var(--text2);
+  line-height:1.75;
+}
+
+.concept-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:12px;
+}
+
+.concept-tag{
+  font-size:0.68rem;
+  font-family:var(--mono);
+  background:var(--surface);
+  border:1px solid var(--border);
+  color:var(--text3);
+  padding:3px 10px;
+  border-radius:100px;
+}
+
+/* Formula pill */
+.formula{
+  display:inline-flex;
+  align-items:center;
+  background:var(--bg);
+  border:1px solid var(--border2);
+  border-radius:8px;
+  padding:8px 14px;
+  font-family:var(--mono);
+  font-size:0.8rem;
+  color:var(--gold);
+  margin-top:10px;
+  gap:6px;
+}
+
+/* ================================================
+   CARDS
+================================================ */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--r2);
+  padding:24px;
+  margin-bottom:18px;
+  position:relative;
+  transition:border-color var(--t);
+}
+
+.card:focus-within{border-color:var(--border2);}
+
+.card-title{
+  font-size:0.82rem;
+  font-weight:700;
+  color:var(--text2);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-bottom:18px;
+  font-family:var(--mono);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.card-title::before{
+  content:'';
+  width:3px;height:14px;
+  border-radius:2px;
+  background:var(--cyan);
+  display:block;
+}
+
+/* ================================================
+   FORM ELEMENTS
+================================================ */
+.field{margin-bottom:16px;}
+
+label.lbl{
+  display:block;
+  font-size:0.7rem;
+  font-family:var(--mono);
+  color:var(--text3);
+  margin-bottom:6px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+
+input[type=text],
+input[type=number],
+select{
+  width:100%;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:9px;
+  color:var(--text);
+  font-family:var(--mono);
+  font-size:0.85rem;
+  padding:11px 14px;
+  outline:none;
+  transition:border-color var(--t),box-shadow var(--t);
+  appearance:none;
+  -webkit-appearance:none;
+}
+
+input:focus,select:focus{
+  border-color:var(--cyan);
+  box-shadow:0 0 0 3px rgba(0,212,255,.08);
+}
+
+input::placeholder{color:var(--text3);}
+select option{background:var(--card);}
+
+select{
+  padding-right:32px;
+}
+
+.row-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+
+/* ================================================
+   BUTTONS
+================================================ */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  padding:11px 22px;
+  border-radius:9px;
+  font-family:var(--font);
+  font-size:0.82rem;
+  font-weight:600;
+  cursor:pointer;
+  border:none;
+  transition:opacity var(--t),transform var(--t),box-shadow var(--t);
+  letter-spacing:.01em;
+}
+
+.btn:hover:not(:disabled){opacity:.88;transform:translateY(-1px);}
+.btn:active:not(:disabled){transform:translateY(0);}
+.btn:disabled{opacity:.4;cursor:not-allowed;}
+
+.btn-cyan{
+  background:var(--cyan);
+  color:#06090f;
+  box-shadow:0 4px 20px rgba(0,212,255,.25);
+}
+
+.btn-gold{
+  background:var(--gold);
+  color:#06090f;
+  box-shadow:0 4px 20px rgba(255,201,77,.2);
+}
+
+.btn-green{
+  background:var(--green);
+  color:#06090f;
+  box-shadow:0 4px 20px rgba(0,229,160,.2);
+}
+
+.btn-violet{
+  background:var(--violet);
+  color:#06090f;
+}
+
+.btn-ghost{
+  background:transparent;
+  color:var(--text2);
+  border:1px solid var(--border2);
+}
+
+.btn-ghost:hover:not(:disabled){border-color:var(--cyan);color:var(--cyan);}
+
+.btn-danger{
+  background:var(--red);
+  color:#fff;
+}
+
+.btn-row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:6px;
+}
+
+/* ================================================
+   RESULT BOX
+================================================ */
+.result-box{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:16px 18px;
+  margin-top:16px;
+  font-size:0.84rem;
+  line-height:1.7;
+  display:none;
+  animation:fadeUp .25s var(--ease);
+}
+.result-box.show{display:block;}
+.result-box.ok   {border-color:var(--green);background:var(--green-dim);}
+.result-box.err  {border-color:var(--red);background:var(--red-dim);}
+.result-box.info {border-color:var(--cyan);background:var(--cyan-dim);}
+.result-box.gold {border-color:var(--gold);background:var(--gold-dim);}
+
+.big-num{
+  font-family:var(--mono);
+  font-size:2.4rem;
+  font-weight:600;
+  display:block;
+  line-height:1;
+  margin-bottom:6px;
+}
+
+.result-meta{
+  font-size:0.74rem;
+  font-family:var(--mono);
+  color:var(--text2);
+  margin-top:6px;
+}
+
+/* ================================================
+   CGPA CALCULATOR — FIXED
+================================================ */
+.cgpa-table-header{
+  display:grid;
+  grid-template-columns:2fr 1.4fr 1fr 32px;
+  gap:10px;
+  padding:0 0 6px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:10px;
+}
+
+.cgpa-table-header span{
+  font-size:0.66rem;
+  font-family:var(--mono);
+  color:var(--text3);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+#cgpa-rows{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+
+.cgpa-row{
+  display:grid;
+  grid-template-columns:2fr 1.4fr 1fr 32px;
+  gap:10px;
+  align-items:center;
+}
+
+/* CRITICAL FIX: reset margin on inputs inside cgpa rows */
+.cgpa-row input,
+.cgpa-row select{
+  margin-bottom:0 !important;
+  padding:9px 12px;
+}
+
+.cgpa-row select{
+  padding-right:28px;
+  font-size:0.8rem;
+}
+
+.cgpa-row .rm-btn{
+  width:28px;height:28px;
+  border-radius:7px;
+  background:var(--red-dim);
+  border:1px solid rgba(255,77,109,.2);
+  color:var(--red);
+  cursor:pointer;
+  font-size:0.8rem;
+  display:grid;place-items:center;
+  transition:background var(--t);
+  flex-shrink:0;
+}
+
+.cgpa-row .rm-btn:hover{background:rgba(255,77,109,.25);}
+
+.cgpa-summary{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:16px;
+}
+
+.cgpa-stat{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px;
+  text-align:center;
+}
+
+.cgpa-stat .val{
+  font-family:var(--mono);
+  font-size:1.6rem;
+  font-weight:600;
+  display:block;
+  line-height:1;
+  margin-bottom:4px;
+}
+
+.cgpa-stat .lbl2{
+  font-size:0.66rem;
+  color:var(--text3);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-family:var(--mono);
+}
+
+/* ================================================
+   RESISTOR SWATCHES
+================================================ */
+.band-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-bottom:16px;
+}
+
+.band-row{display:flex;align-items:flex-end;gap:8px;}
+
+.swatch{
+  width:34px;height:34px;
+  border-radius:7px;
+  border:2px solid var(--border);
+  flex-shrink:0;
+  transition:background var(--t),border-color var(--t);
+}
+
+.band-row select{margin-bottom:0 !important;flex:1;}
+
+/* ================================================
+   POMODORO
+================================================ */
+.timer-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:32px 0 24px;
+}
+
+.timer-ring{
+  position:relative;
+  width:180px;height:180px;
+  margin-bottom:24px;
+}
+
+.timer-ring svg{
+  transform:rotate(-90deg);
+  width:180px;height:180px;
+}
+
+.timer-ring circle.track{
+  fill:none;
+  stroke:var(--border);
+  stroke-width:6;
+}
+
+.timer-ring circle.prog{
+  fill:none;
+  stroke:var(--cyan);
+  stroke-width:6;
+  stroke-linecap:round;
+  stroke-dasharray:502;
+  stroke-dashoffset:0;
+  transition:stroke-dashoffset 1s linear,stroke .5s;
+  filter:drop-shadow(0 0 6px var(--cyan));
+}
+
+.timer-center{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+.timer-time{
+  font-family:var(--mono);
+  font-size:2.6rem;
+  font-weight:600;
+  color:var(--text);
+  letter-spacing:-0.02em;
+  line-height:1;
+}
+
+.timer-mode{
+  font-size:0.66rem;
+  color:var(--text3);
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  margin-top:6px;
+  font-family:var(--mono);
+}
+
+.pomo-sessions{
+  display:flex;
+  gap:6px;
+  margin-bottom:20px;
+}
+
+.pomo-dot{
+  width:8px;height:8px;
+  border-radius:50%;
+  background:var(--border2);
+  transition:background var(--t);
+}
+
+.pomo-dot.done{background:var(--cyan);box-shadow:0 0 6px var(--cyan);}
+
+/* ================================================
+   ATTENDANCE METER
+================================================ */
+.att-bar-wrap{
+  height:10px;
+  background:var(--border);
+  border-radius:100px;
+  overflow:hidden;
+  margin:12px 0;
+  display:none;
+}
+
+.att-bar-fill{
+  height:100%;
+  border-radius:100px;
+  transition:width .6s var(--ease),background .5s;
+}
+
+/* ================================================
+   HAMBURGER & MOBILE
+================================================ */
+#hamburger{
+  display:none;
+  position:fixed;
+  top:14px;left:14px;
+  z-index:200;
+  background:var(--card);
+  border:1px solid var(--border2);
+  border-radius:9px;
+  padding:9px 12px;
+  cursor:pointer;
+  color:var(--cyan);
+  font-size:1rem;
+}
+
+#overlay{
+  display:none;
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.6);
+  z-index:90;
+  backdrop-filter:blur(2px);
+}
+
+@media(max-width:820px){
+  #sidebar{transform:translateX(-100%);}
+  #sidebar.open{transform:translateX(0);box-shadow:6px 0 40px rgba(0,0,0,.6);}
+  #main{margin-left:0;padding:24px 18px;padding-top:64px;}
+  #hamburger{display:flex;align-items:center;}
+  #overlay.show{display:block;}
+  .row-2,.row-3{grid-template-columns:1fr;}
+  .cgpa-table-header,.cgpa-row{grid-template-columns:1fr 1.2fr 0.8fr 32px;}
+  .welcome-grid{grid-template-columns:repeat(2,1fr);}
+  .cgpa-summary{grid-template-columns:1fr 1fr;}
+}
+
+/* ================================================
+   SCROLLBAR
+================================================ */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px;}
+
+/* ================================================
+   DIVIDER
+================================================ */
+.divider{
+  height:1px;
+  background:var(--border);
+  margin:22px 0;
+}
+/*]]>*/
+</style>
+</head>
+<body>
+
+<!-- Hamburger (mobile) -->
+<button id="hamburger" onclick="toggleSb()" aria-label="Open menu">&#9776;</button>
+<div id="overlay" onclick="closeSb()"></div>
+
+<!-- ================================================
+     SIDEBAR
+================================================ -->
+<nav id="sidebar">
+  <div class="sb-brand">
+    <h1><span class="sb-brand-dot"></span>Student Utility Hub</h1>
+    <p>Engineering Toolbox v2.0</p>
+  </div>
+
+  <div class="sb-search">
+    <div class="sb-search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" id="s-input" placeholder="Search calculators…" oninput="filterNav()"/>
+    </div>
+  </div>
+
+  <div class="sb-nav">
+    <div class="sb-label">Calculators</div>
+    <div class="nav-item" data-target="binary"     onclick="showSec('binary')">    <span class="nav-icon">🔢</span>Binary ↔ Decimal</div>
+    <div class="nav-item" data-target="cgpa"       onclick="showSec('cgpa')">      <span class="nav-icon">🎓</span>CGPA Calculator</div>
+    <div class="nav-item" data-target="antenna"    onclick="showSec('antenna')">   <span class="nav-icon">📡</span>Antenna Wavelength</div>
+    <div class="nav-item" data-target="resistor"   onclick="showSec('resistor')">  <span class="nav-icon">🎨</span>Resistor Color Code</div>
+    <div class="nav-item" data-target="attendance" onclick="showSec('attendance')"><span class="nav-icon">📅</span>Attendance %</div>
+    <div class="nav-item" data-target="units"      onclick="showSec('units')">     <span class="nav-icon">⚙️</span>Unit Converter</div>
+    <div class="nav-item" data-target="pomodoro"   onclick="showSec('pomodoro')">  <span class="nav-icon">⏱️</span>Pomodoro Timer</div>
+  </div>
+
+  <div class="sb-footer">
+    Made for engineering students  ⚡
+  </div>
+</nav>
+
+<!-- ================================================
+     MAIN
+================================================ -->
+<main id="main">
+
+<!-- WELCOME -->
+<div id="welcome">
+  <div class="welcome-badge">⚡ 7 Tools in One Place</div>
+  <h2>Your Engineering<br><span class="hi">Utility Hub</span></h2>
+  <p>Everything a CS / ECE / EEE student needs — calculators, converters, and tools — all in one clean interface.</p>
+  <div class="welcome-grid">
+    <div class="welcome-card" onclick="showSec('binary')">
+      <span class="wc-icon">🔢</span>
+      <div class="wc-name">Binary ↔ Decimal</div>
+      <div class="wc-desc">Number system converter</div>
+    </div>
+    <div class="welcome-card" onclick="showSec('cgpa')">
+      <span class="wc-icon">🎓</span>
+      <div class="wc-name">CGPA Calculator</div>
+      <div class="wc-desc">Grade point calculator</div>
+    </div>
+    <div class="welcome-card" onclick="showSec('antenna')">
+      <span class="wc-icon">📡</span>
+      <div class="wc-name">Antenna Wavelength</div>
+      <div class="wc-desc">RF wavelength calculator</div>
+    </div>
+    <div class="welcome-card" onclick="showSec('resistor')">
+      <span class="wc-icon">🎨</span>
+      <div class="wc-name">Resistor Color Code</div>
+      <div class="wc-desc">4-band resistance decoder</div>
+    </div>
+    <div class="welcome-card" onclick="showSec('attendance')">
+      <span class="wc-icon">📅</span>
+      <div class="wc-name">Attendance Tracker</div>
+      <div class="wc-desc">Know how many to skip</div>
+    </div>
+    <div class="welcome-card" onclick="showSec('units')">
+      <span class="wc-icon">⚙️</span>
+      <div class="wc-name">Unit Converter</div>
+      <div class="wc-desc">dBm, Watt, Frequency</div>
+    </div>
+    <div class="welcome-card" onclick="showSec('pomodoro')">
+      <span class="wc-icon">⏱️</span>
+      <div class="wc-name">Pomodoro Timer</div>
+      <div class="wc-desc">25-min focus sessions</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================
+     1. BINARY ↔ DECIMAL
+================================================ -->
+<div class="calc-section" id="section-binary">
+  <div class="page-header">
+    <div class="ph-icon ph-cyan">🔢</div>
+    <div class="ph-text">
+      <h2>Binary ↔ Decimal Converter</h2>
+      <p>Convert numbers between base-2 (binary) and base-10 (decimal) number systems instantly.</p>
+    </div>
+  </div>
+
+  <!-- Concept -->
+  <div class="concept-box">
+    <div class="concept-header">
+      <span class="concept-badge">📖 Concept</span>
+    </div>
+    <p><strong style="color:var(--text)">Binary (Base-2)</strong> is the language of computers — every piece of data is stored as a sequence of 0s and 1s. <strong style="color:var(--text)">Decimal (Base-10)</strong> is the human number system. Understanding conversion is fundamental to Computer Science, Digital Electronics, and Networking.</p>
+    <div class="formula">λ   Binary: Each position = 2ⁿ  |  E.g., 1010₂ = 1×2³ + 0×2² + 1×2¹ + 0×2⁰ = 10₁₀</div>
+    <div class="concept-tags">
+      <span class="concept-tag">Digital Logic</span>
+      <span class="concept-tag">Computer Architecture</span>
+      <span class="concept-tag">Data Representation</span>
+      <span class="concept-tag">Base Conversion</span>
+    </div>
+  </div>
+
+  <div class="row-2">
+    <!-- Binary → Decimal -->
+    <div class="card">
+      <div class="card-title">Binary → Decimal</div>
+      <div class="field">
+        <label class="lbl">Enter Binary Number</label>
+        <input type="text" id="bin-in" placeholder="e.g. 1010110"/>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-cyan" onclick="binToDec()">Convert →</button>
+        <button class="btn btn-ghost" onclick="clr('bin-in','bin-res')">Clear</button>
+      </div>
+      <div class="result-box" id="bin-res"></div>
+    </div>
+
+    <!-- Decimal → Binary -->
+    <div class="card">
+      <div class="card-title">Decimal → Binary</div>
+      <div class="field">
+        <label class="lbl">Enter Decimal Number</label>
+        <input type="number" id="dec-in" placeholder="e.g. 86" min="0"/>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-cyan" onclick="decToBin()">Convert →</button>
+        <button class="btn btn-ghost" onclick="clr('dec-in','dec-res')">Clear</button>
+      </div>
+      <div class="result-box" id="dec-res"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================
+     2. CGPA CALCULATOR — FULLY FIXED
+================================================ -->
+<div class="calc-section" id="section-cgpa">
+  <div class="page-header">
+    <div class="ph-icon ph-gold">🎓</div>
+    <div class="ph-text">
+      <h2>CGPA Calculator</h2>
+      <p>Calculate your Cumulative Grade Point Average with weighted credit system.</p>
+    </div>
+  </div>
+
+  <!-- Concept -->
+  <div class="concept-box" style="--accent-local:var(--gold)">
+    <div class="concept-header">
+      <span class="concept-badge" style="color:var(--gold);background:var(--gold-dim);border-color:rgba(255,201,77,.2)">📖 Concept</span>
+    </div>
+    <p><strong style="color:var(--text)">CGPA (Cumulative Grade Point Average)</strong> measures your overall academic performance on a 10-point scale. Each subject has a <em style="color:var(--text)">credit weight</em> that reflects its importance. Higher-credit subjects affect your CGPA more.</p>
+    <div class="formula" style="color:var(--gold)">CGPA = Σ(Grade Points × Credits) ÷ Σ(Credits)  |  % ≈ CGPA × 9.5</div>
+    <div class="concept-tags">
+      <span class="concept-tag">Academic Performance</span>
+      <span class="concept-tag">Weighted Average</span>
+      <span class="concept-tag">GPA Scale</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Subject Entries</div>
+
+    <!-- Column Headers -->
+    <div class="cgpa-table-header">
+      <span>Subject Name</span>
+      <span>Grade</span>
+      <span>Credits</span>
+      <span></span>
+    </div>
+
+    <!-- Dynamic rows injected here -->
+    <div id="cgpa-rows"></div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost"  onclick="addCgpaRow()">+ Add Subject</button>
+      <button class="btn btn-gold"   onclick="calcCgpa()">Calculate CGPA</button>
+      <button class="btn btn-ghost"  onclick="resetCgpa()">Reset All</button>
+    </div>
+
+    <!-- Summary cards shown after calc -->
+    <div id="cgpa-summary" style="display:none">
+      <div class="divider"></div>
+      <div class="cgpa-summary">
+        <div class="cgpa-stat">
+          <span class="val" id="cgpa-val" style="color:var(--gold)">—</span>
+          <span class="lbl2">CGPA / 10</span>
+        </div>
+        <div class="cgpa-stat">
+          <span class="val" id="cgpa-pct" style="color:var(--green)">—</span>
+          <span class="lbl2">Percentage</span>
+        </div>
+        <div class="cgpa-stat">
+          <span class="val" id="cgpa-crd" style="color:var(--cyan)">—</span>
+          <span class="lbl2">Total Credits</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-box" id="cgpa-err"></div>
+  </div>
+</div>
+
+<!-- ================================================
+     3. ANTENNA WAVELENGTH
+================================================ -->
+<div class="calc-section" id="section-antenna">
+  <div class="page-header">
+    <div class="ph-icon ph-violet">📡</div>
+    <div class="ph-text">
+      <h2>Antenna Wavelength Calculator</h2>
+      <p>Calculate electromagnetic wavelength from frequency using the speed of light.</p>
+    </div>
+  </div>
+
+  <div class="concept-box" style="">
+    <div class="concept-header">
+      <span class="concept-badge" style="color:var(--violet);background:var(--violet-dim);border-color:rgba(167,139,250,.2)">📖 Concept</span>
+    </div>
+    <p><strong style="color:var(--text)">Wavelength (λ)</strong> is the physical length of one complete cycle of an electromagnetic wave. Antenna engineers design antennas to be exactly λ/2 or λ/4 in length for maximum efficiency. Higher frequencies have shorter wavelengths.</p>
+    <div class="formula" style="color:var(--violet)">λ = c / f  |  c = 3 × 10⁸ m/s  |  Antenna = λ/2 or λ/4</div>
+    <div class="concept-tags">
+      <span class="concept-tag">RF Engineering</span>
+      <span class="concept-tag">Antenna Design</span>
+      <span class="concept-tag">Electromagnetics</span>
+      <span class="concept-tag">Telecommunications</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Wavelength Calculator</div>
+    <div class="row-2">
+      <div class="field">
+        <label class="lbl">Frequency Value</label>
+        <input type="number" id="freq-in" placeholder="e.g. 2400" min="0" step="any"/>
+      </div>
+      <div class="field">
+        <label class="lbl">Unit</label>
+        <select id="freq-unit">
+          <option value="Hz">Hz — Hertz</option>
+          <option value="kHz">kHz — Kilohertz</option>
+          <option value="MHz" selected>MHz — Megahertz</option>
+          <option value="GHz">GHz — Gigahertz</option>
+        </select>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-violet" onclick="calcWavelength()">Calculate λ</button>
+      <button class="btn btn-ghost" onclick="clr('freq-in','ant-res')">Clear</button>
+    </div>
+    <div class="result-box" id="ant-res"></div>
+  </div>
+</div>
+
+<!-- ================================================
+     4. RESISTOR COLOR CODE
+================================================ -->
+<div class="calc-section" id="section-resistor">
+  <div class="page-header">
+    <div class="ph-icon ph-red">🎨</div>
+    <div class="ph-text">
+      <h2>Resistor Color Code</h2>
+      <p>Decode 4-band resistor color codes to find resistance value and tolerance.</p>
+    </div>
+  </div>
+
+  <div class="concept-box">
+    <div class="concept-header">
+      <span class="concept-badge" style="color:var(--red);background:var(--red-dim);border-color:rgba(255,77,109,.2)">📖 Concept</span>
+    </div>
+    <p><strong style="color:var(--text)">Resistors</strong> use a color-band system to display their value since the components are too small for printed text. Each color represents a digit (0–9). The 3rd band is a multiplier and the 4th band shows tolerance. Mnemonics like <em style="color:var(--text)">"BB ROY of Great Britain has Very Good Wife"</em> help remember the order.</p>
+    <div class="formula" style="color:var(--red)">R = (Band1 × 10 + Band2) × Multiplier  ±  Tolerance%</div>
+    <div class="concept-tags">
+      <span class="concept-tag">Circuit Design</span>
+      <span class="concept-tag">Electronics</span>
+      <span class="concept-tag">Component Reading</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Select Band Colors</div>
+    <div class="band-grid">
+      <div class="field">
+        <label class="lbl">Band 1 — 1st Digit</label>
+        <div class="band-row">
+          <div class="swatch" id="sw1"></div>
+          <select id="band1" onchange="updateSwatch(1)"></select>
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl">Band 2 — 2nd Digit</label>
+        <div class="band-row">
+          <div class="swatch" id="sw2"></div>
+          <select id="band2" onchange="updateSwatch(2)"></select>
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl">Band 3 — Multiplier</label>
+        <div class="band-row">
+          <div class="swatch" id="sw3"></div>
+          <select id="band3" onchange="updateSwatch(3)"></select>
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl">Band 4 — Tolerance</label>
+        <div class="band-row">
+          <div class="swatch" id="sw4"></div>
+          <select id="band4" onchange="updateSwatch(4)"></select>
+        </div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-cyan" onclick="calcResistor()">Decode Resistor</button>
+      <button class="btn btn-ghost" onclick="resetResistor()">Reset</button>
+    </div>
+    <div class="result-box" id="res-res"></div>
+  </div>
+</div>
+
+<!-- ================================================
+     5. ATTENDANCE
+================================================ -->
+<div class="calc-section" id="section-attendance">
+  <div class="page-header">
+    <div class="ph-icon ph-green">📅</div>
+    <div class="ph-text">
+      <h2>Attendance Calculator</h2>
+      <p>Track attendance percentage and know exactly how many classes you can safely skip.</p>
+    </div>
+  </div>
+
+  <div class="concept-box">
+    <div class="concept-header">
+      <span class="concept-badge" style="color:var(--green);background:var(--green-dim);border-color:rgba(0,229,160,.2)">📖 Concept</span>
+    </div>
+    <p>Most universities mandate a <strong style="color:var(--text)">minimum 75% attendance</strong> to be eligible for exams. Falling below this can result in detention or debarment. This calculator shows your current standing and gives you a precise skip-budget or catch-up plan.</p>
+    <div class="formula" style="color:var(--green)">Attendance % = (Classes Attended / Total Classes) × 100  |  Min 75%</div>
+    <div class="concept-tags">
+      <span class="concept-tag">Academic Eligibility</span>
+      <span class="concept-tag">Exam Eligibility</span>
+      <span class="concept-tag">Class Planning</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Attendance Calculator</div>
+    <div class="row-3">
+      <div class="field">
+        <label class="lbl">Total Classes Held</label>
+        <input type="number" id="att-total" placeholder="e.g. 60" min="1"/>
+      </div>
+      <div class="field">
+        <label class="lbl">Classes Attended</label>
+        <input type="number" id="att-attend" placeholder="e.g. 47" min="0"/>
+      </div>
+      <div class="field">
+        <label class="lbl">Minimum Required %</label>
+        <input type="number" id="att-min" placeholder="75" value="75" min="1" max="100"/>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-green" onclick="calcAtt()">Calculate</button>
+      <button class="btn btn-ghost" onclick="resetAtt()">Reset</button>
+    </div>
+
+    <div class="att-bar-wrap" id="att-bar-wrap">
+      <div class="att-bar-fill" id="att-bar-fill"></div>
+    </div>
+
+    <div class="result-box" id="att-res"></div>
+  </div>
+</div>
+
+<!-- ================================================
+     6. UNIT CONVERTER
+================================================ -->
+<div class="calc-section" id="section-units">
+  <div class="page-header">
+    <div class="ph-icon ph-gold">⚙️</div>
+    <div class="ph-text">
+      <h2>Engineering Unit Converter</h2>
+      <p>Convert between dBm and Watts, and between frequency units used in RF engineering.</p>
+    </div>
+  </div>
+
+  <div class="concept-box">
+    <div class="concept-header">
+      <span class="concept-badge">📖 Concept</span>
+    </div>
+    <p><strong style="color:var(--text)">dBm</strong> (decibel-milliwatt) is a logarithmic power unit referenced to 1 mW. It's widely used in RF, wireless, and telecom because it can represent huge power ranges compactly. <strong style="color:var(--text)">0 dBm = 1 mW</strong>, 30 dBm = 1 W.</p>
+    <div class="formula">dBm = 10 × log₁₀(P_mW)  |  P_W = 10^(dBm/10) / 1000</div>
+    <div class="concept-tags">
+      <span class="concept-tag">RF Engineering</span>
+      <span class="concept-tag">Signal Power</span>
+      <span class="concept-tag">Wireless</span>
+      <span class="concept-tag">Telecommunications</span>
+    </div>
+  </div>
+
+  <!-- dBm ↔ Watt -->
+  <div class="card">
+    <div class="card-title">dBm ↔ Watt</div>
+    <div class="row-2">
+      <div>
+        <div class="field">
+          <label class="lbl">dBm Value</label>
+          <input type="number" id="dbm-in" placeholder="e.g. 30" step="any"/>
+        </div>
+        <button class="btn btn-gold" onclick="dbmToW()">→ Convert to Watt</button>
+      </div>
+      <div>
+        <div class="field">
+          <label class="lbl">Watt Value</label>
+          <input type="number" id="watt-in" placeholder="e.g. 1" step="any" min="0"/>
+        </div>
+        <button class="btn btn-gold" onclick="wToDbm()">→ Convert to dBm</button>
+      </div>
+    </div>
+    <div class="result-box" id="dbm-res"></div>
+  </div>
+
+  <!-- Frequency Converter -->
+  <div class="card">
+    <div class="card-title">Frequency Unit Converter</div>
+    <div class="row-2">
+      <div class="field">
+        <label class="lbl">Frequency Value</label>
+        <input type="number" id="fconv-val" placeholder="e.g. 2400" step="any" min="0"/>
+      </div>
+      <div class="field">
+        <label class="lbl">From Unit</label>
+        <select id="fconv-from">
+          <option value="Hz">Hz</option>
+          <option value="kHz">kHz</option>
+          <option value="MHz" selected>MHz</option>
+          <option value="GHz">GHz</option>
+        </select>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-cyan" onclick="convertFreq()">Convert All Units</button>
+      <button class="btn btn-ghost" onclick="clr('fconv-val','freq-res')">Clear</button>
+    </div>
+    <div class="result-box" id="freq-res"></div>
+  </div>
+</div>
+
+<!-- ================================================
+     7. POMODORO
+================================================ -->
+<div class="calc-section" id="section-pomodoro">
+  <div class="page-header">
+    <div class="ph-icon ph-red">⏱️</div>
+    <div class="ph-text">
+      <h2>Pomodoro Study Timer</h2>
+      <p>The Pomodoro Technique: 25 minutes of deep focus followed by a 5-minute break.</p>
+    </div>
+  </div>
+
+  <div class="concept-box">
+    <div class="concept-header">
+      <span class="concept-badge" style="color:var(--red);background:var(--red-dim);border-color:rgba(255,77,109,.2)">📖 Concept</span>
+    </div>
+    <p>Developed by Francesco Cirillo in the 1980s, the <strong style="color:var(--text)">Pomodoro Technique</strong> is a time-management method that improves focus and reduces mental fatigue. Work is broken into 25-minute intervals (pomodoros), separated by short breaks. After 4 sessions, take a longer 15–30 minute break.</p>
+    <div class="formula" style="color:var(--red)">1 Pomodoro = 25 min Work + 5 min Break  |  Every 4th = 15–30 min Break</div>
+    <div class="concept-tags">
+      <span class="concept-tag">Productivity</span>
+      <span class="concept-tag">Time Management</span>
+      <span class="concept-tag">Deep Focus</span>
+      <span class="concept-tag">Study Technique</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="timer-wrap">
+      <!-- Session dots -->
+      <div class="pomo-sessions" id="pomo-dots">
+        <div class="pomo-dot" id="dot0"></div>
+        <div class="pomo-dot" id="dot1"></div>
+        <div class="pomo-dot" id="dot2"></div>
+        <div class="pomo-dot" id="dot3"></div>
+      </div>
+
+      <!-- Ring timer -->
+      <div class="timer-ring">
+        <svg viewBox="0 0 180 180">
+          <circle class="track" cx="90" cy="90" r="80"/>
+          <circle class="prog" id="timer-prog" cx="90" cy="90" r="80"/>
+        </svg>
+        <div class="timer-center">
+          <div class="timer-time" id="timer-time">25:00</div>
+          <div class="timer-mode" id="timer-mode">READY</div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-cyan"   id="btn-start" onclick="pomStart()">▶ Start</button>
+        <button class="btn btn-ghost"  id="btn-pause" onclick="pomPause()" disabled>⏸ Pause</button>
+        <button class="btn btn-danger" onclick="pomReset()">↺ Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom timing -->
+  <div class="card">
+    <div class="card-title">Custom Durations</div>
+    <div class="row-2">
+      <div class="field">
+        <label class="lbl">Work Duration (minutes)</label>
+        <input type="number" id="pom-work" value="25" min="1" max="120"/>
+      </div>
+      <div class="field">
+        <label class="lbl">Break Duration (minutes)</label>
+        <input type="number" id="pom-break" value="5" min="1" max="60"/>
+      </div>
+    </div>
+    <button class="btn btn-ghost" onclick="pomApply()">Apply &amp; Reset</button>
+  </div>
+</div>
+
+</main>
+
+<!-- ================================================
+     JAVASCRIPT
+================================================ -->
+<script>
+//<![CDATA[
+'use strict';
+
+/* ============================================================
+   NAV HELPERS
+============================================================ */
+function showSec(name) {
+  document.getElementById('welcome').style.display = 'none';
+  document.querySelectorAll('.calc-section').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('section-' + name);
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(li => {
+    li.classList.toggle('active', li.dataset.target === name);
+  });
+  closeSb();
+}
+
+function filterNav() {
+  const q = document.getElementById('s-input').value.toLowerCase();
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.style.display = el.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+
+function toggleSb() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+}
+
+function closeSb() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+/* ============================================================
+   RESULT HELPERS
+============================================================ */
+function showRes(id, html, type = 'ok') {
+  const el = document.getElementById(id);
+  el.innerHTML = html;
+  el.className = 'result-box show ' + type;
+}
+
+function clr(inputId, resId) {
+  document.getElementById(inputId).value = '';
+  const r = document.getElementById(resId);
+  if (r) { r.className = 'result-box'; r.innerHTML = ''; }
+}
+
+/* ============================================================
+   1. BINARY ↔ DECIMAL
+============================================================ */
+function binToDec() {
+  const v = document.getElementById('bin-in').value.trim();
+  if (!v) return showRes('bin-res', '⚠️ Please enter a binary number.', 'err');
+  if (!/^[01]+$/.test(v)) return showRes('bin-res', '⚠️ Binary uses only 0 and 1.', 'err');
+  const dec = parseInt(v, 2);
+  showRes('bin-res',
+    `<span class="big-num" style="color:var(--cyan)">${dec}</span>
+     <span class="result-meta">${v}₂ = ${dec}₁₀  |  Hex: ${dec.toString(16).toUpperCase()}</span>`,
+    'info'
+  );
+}
+
+function decToBin() {
+  const v = parseInt(document.getElementById('dec-in').value);
+  if (isNaN(v) || v < 0) return showRes('dec-res', '⚠️ Enter a valid non-negative integer.', 'err');
+  const bin = v.toString(2);
+  showRes('dec-res',
+    `<span class="big-num" style="color:var(--cyan)">${bin}</span>
+     <span class="result-meta">${v}₁₀ = ${bin}₂  |  Nibbles: ${bin.match(/.{1,4}/g)?.join(' ') || bin}</span>`,
+    'info'
+  );
+}
+
+/* ============================================================
+   2. CGPA CALCULATOR — FIXED
+   KEY FIX: Reading input values properly from the grid layout.
+   Each .cgpa-row has: [input.name, select.grade, input.credits, button.rm]
+============================================================ */
+const GP = { 'O':10,'A+':9,'A':8,'B+':7,'B':6,'C':5,'D':4,'F':0 };
+let rowCount = 0;
+
+function addCgpaRow() {
+  rowCount++;
+  const container = document.getElementById('cgpa-rows');
+  const div = document.createElement('div');
+  div.className = 'cgpa-row';
+  div.id = 'cr-' + rowCount;
+
+  // Build grade options
+  const opts = Object.entries(GP).map(([g, p]) =>
+    `<option value="${g}">${g} (${p})</option>`
+  ).join('');
+
+  div.innerHTML = `
+    <input type="text" class="subj-name" placeholder="Subject ${rowCount}" />
+    <select class="subj-grade">${opts}</select>
+    <input type="number" class="subj-credits" placeholder="e.g. 4" min="1" max="6" step="1" />
+    <button class="rm-btn" onclick="rmRow('cr-${rowCount}')" title="Remove">✕</button>
+  `;
+  container.appendChild(div);
+}
+
+function rmRow(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+}
+
+function resetCgpa() {
+  document.getElementById('cgpa-rows').innerHTML = '';
+  document.getElementById('cgpa-summary').style.display = 'none';
+  document.getElementById('cgpa-err').className = 'result-box';
+  rowCount = 0;
+  addCgpaRow(); addCgpaRow(); addCgpaRow();
+}
+
+function calcCgpa() {
+  // Get all rows
+  const rows = document.querySelectorAll('.cgpa-row');
+  if (!rows.length) return showRes('cgpa-err', '⚠️ Add at least one subject row.', 'err');
+
+  let totalWP = 0;  // weighted grade points
+  let totalCr = 0;  // total credits
+  let errors  = [];
+  let count   = 0;
+
+  rows.forEach((row, i) => {
+    const gradeEl   = row.querySelector('.subj-grade');   // <select>
+    const creditsEl = row.querySelector('.subj-credits'); // <input type=number>
+
+    const grade   = gradeEl.value;         // e.g. "A+"
+    const credits = parseFloat(creditsEl.value); // e.g. 4
+
+    // Validate credits
+    if (!creditsEl.value || creditsEl.value.trim() === '' || isNaN(credits) || credits <= 0) {
+      errors.push(`Row ${i + 1}: Enter valid credits`);
+      return;
+    }
+
+    // Grade must exist in our scale
+    if (!(grade in GP)) {
+      errors.push(`Row ${i + 1}: Unknown grade "${grade}"`);
+      return;
+    }
+
+    const gp = GP[grade];
+    totalWP += gp * credits;
+    totalCr += credits;
+    count++;
+  });
+
+  if (errors.length) return showRes('cgpa-err', '⚠️ ' + errors.join('  |  '), 'err');
+  if (count === 0 || totalCr === 0) return showRes('cgpa-err', '⚠️ Fill in credits for at least one subject.', 'err');
+
+  const cgpa = (totalWP / totalCr).toFixed(2);
+  const pct  = (cgpa * 9.5).toFixed(1); // common Indian university formula
+
+  // Show summary
+  document.getElementById('cgpa-val').textContent = cgpa;
+  document.getElementById('cgpa-pct').textContent = pct + '%';
+  document.getElementById('cgpa-crd').textContent = totalCr;
+  document.getElementById('cgpa-summary').style.display = 'block';
+
+  // Clear error box
+  document.getElementById('cgpa-err').className = 'result-box';
+}
+
+// Init with 3 rows on load
+addCgpaRow(); addCgpaRow(); addCgpaRow();
+
+/* ============================================================
+   3. ANTENNA WAVELENGTH
+============================================================ */
+const C = 3e8;
+const fMul = { Hz:1, kHz:1e3, MHz:1e6, GHz:1e9 };
+
+function calcWavelength() {
+  const v    = parseFloat(document.getElementById('freq-in').value);
+  const unit = document.getElementById('freq-unit').value;
+  if (!v || v <= 0) return showRes('ant-res', '⚠️ Enter a valid positive frequency.', 'err');
+
+  const hz = v * fMul[unit];
+  const lm = C / hz; // lambda in meters
+
+  function fmtM(m) {
+    if (m >= 1)    return m.toFixed(4) + ' m';
+    if (m >= 0.01) return (m * 100).toFixed(4) + ' cm';
+    if (m >= 0.001)return (m * 1000).toFixed(4) + ' mm';
+    return (m * 1e6).toFixed(4) + ' µm';
+  }
+
+  showRes('ant-res',
+    `<span class="big-num" style="color:var(--violet)">λ = ${fmtM(lm)}</span>
+     <span class="result-meta">
+       Half-wave (λ/2): ${fmtM(lm/2)}  |  
+       Quarter-wave (λ/4): ${fmtM(lm/4)}<br>
+       Frequency: ${v} ${unit} = ${hz.toExponential(3)} Hz
+     </span>`,
+    'info'
+  );
+}
+
+/* ============================================================
+   4. RESISTOR COLOR CODE
+============================================================ */
+const COLORS = [
+  {name:'Black',  hex:'#111',    d:0, m:1,       t:null    },
+  {name:'Brown',  hex:'#795548', d:1, m:10,      t:'±1%'   },
+  {name:'Red',    hex:'#e53935', d:2, m:100,     t:'±2%'   },
+  {name:'Orange', hex:'#f57c00', d:3, m:1000,    t:null    },
+  {name:'Yellow', hex:'#f9a825', d:4, m:10000,   t:null    },
+  {name:'Green',  hex:'#388e3c', d:5, m:1e5,     t:'±0.5%' },
+  {name:'Blue',   hex:'#1565c0', d:6, m:1e6,     t:'±0.25%'},
+  {name:'Violet', hex:'#6a1b9a', d:7, m:1e7,     t:'±0.1%' },
+  {name:'Grey',   hex:'#546e7a', d:8, m:1e8,     t:'±0.05%'},
+  {name:'White',  hex:'#eeeeee', d:9, m:1e9,     t:null    },
+  {name:'Gold',   hex:'#ffd600', d:null, m:0.1,  t:'±5%'   },
+  {name:'Silver', hex:'#bdbdbd', d:null, m:0.01, t:'±10%'  },
+];
+
+function initResistor() {
+  ['band1','band2','band3','band4'].forEach((id, idx) => {
+    const sel = document.getElementById(id);
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = '— Select —';
+    sel.appendChild(placeholder);
+
+    COLORS.forEach(c => {
+      if (idx < 2 && c.d === null) return;  // bands 1&2: digits only
+      if (idx === 3 && c.t === null) return; // band 4: tolerance only
+      const o = document.createElement('option');
+      o.value = c.name;
+      o.textContent = c.name;
+      sel.appendChild(o);
+    });
+    updateSwatch(idx + 1);
+  });
+}
+
+function updateSwatch(n) {
+  const sel = document.getElementById('band' + n);
+  const sw  = document.getElementById('sw' + n);
+  const c   = COLORS.find(x => x.name === sel.value);
+  sw.style.background   = c ? c.hex : 'transparent';
+  sw.style.borderColor  = c ? c.hex : 'var(--border)';
+}
+
+function calcResistor() {
+  const b1v = document.getElementById('band1').value;
+  const b2v = document.getElementById('band2').value;
+  const b3v = document.getElementById('band3').value;
+  const b4v = document.getElementById('band4').value;
+  if (!b1v || !b2v || !b3v) return showRes('res-res', '⚠️ Select at least Band 1, 2 and 3.', 'err');
+
+  const c1 = COLORS.find(x => x.name === b1v);
+  const c2 = COLORS.find(x => x.name === b2v);
+  const c3 = COLORS.find(x => x.name === b3v);
+  const c4 = b4v ? COLORS.find(x => x.name === b4v) : null;
+
+  const R = (c1.d * 10 + c2.d) * c3.m;
+  let rStr;
+  if (R >= 1e6)  rStr = (R/1e6).toFixed(3) + ' MΩ';
+  else if (R >= 1e3) rStr = (R/1e3).toFixed(3) + ' kΩ';
+  else           rStr = R.toFixed(2) + ' Ω';
+
+  const tol = c4 ? c4.t : '±20%';
+  showRes('res-res',
+    `<span class="big-num" style="color:var(--red)">${rStr}</span>
+     <span class="result-meta">Tolerance: <strong>${tol}</strong>  |  Range: ${fmtRange(R, tol)}</span>`,
+    'info'
+  );
+}
+
+function fmtRange(R, tol) {
+  const pct = parseFloat(tol.replace('±','').replace('%','')) / 100;
+  const lo  = R * (1 - pct), hi = R * (1 + pct);
+  const fmt = v => v >= 1e6 ? (v/1e6).toFixed(3)+'MΩ' : v >= 1e3 ? (v/1e3).toFixed(3)+'kΩ' : v.toFixed(1)+'Ω';
+  return fmt(lo) + ' – ' + fmt(hi);
+}
+
+function resetResistor() {
+  ['band1','band2','band3','band4'].forEach((id, i) => {
+    document.getElementById(id).value = '';
+    updateSwatch(i + 1);
+  });
+  document.getElementById('res-res').className = 'result-box';
+}
+
+initResistor();
+
+/* ============================================================
+   5. ATTENDANCE
+============================================================ */
+function calcAtt() {
+  const total   = parseInt(document.getElementById('att-total').value);
+  const attend  = parseInt(document.getElementById('att-attend').value);
+  const minPct  = parseFloat(document.getElementById('att-min').value) || 75;
+
+  if (!total   || total <= 0)          return showRes('att-res', '⚠️ Enter valid total classes.', 'err');
+  if (isNaN(attend) || attend < 0)     return showRes('att-res', '⚠️ Enter valid attended classes.', 'err');
+  if (attend > total)                  return showRes('att-res', '⚠️ Attended cannot exceed total classes.', 'err');
+
+  const pct = (attend / total) * 100;
+  const ok  = pct >= minPct;
+
+  // Progress bar
+  const bw = document.getElementById('att-bar-wrap');
+  const bf = document.getElementById('att-bar-fill');
+  bw.style.display = 'block';
+  bf.style.width   = Math.min(pct, 100) + '%';
+  bf.style.background = ok ? 'var(--green)' : 'var(--red)';
+
+  let advice = '';
+  if (ok) {
+    const canSkip = Math.floor((attend - (minPct/100)*total) / (minPct/100));
+    advice = canSkip > 0
+      ? `✅ You can skip <strong>${canSkip}</strong> more class(es) while staying above ${minPct}%.`
+      : `⚠️ You're at the minimum threshold — don't miss any more classes!`;
+  } else {
+    const mustAttend = Math.ceil(((minPct/100)*total - attend) / (1 - minPct/100));
+    advice = `🚨 You need to attend the next <strong>${mustAttend}</strong> consecutive class(es) to cross ${minPct}%.`;
+  }
+
+  showRes('att-res',
+    `<span class="big-num" style="color:${ok?'var(--green)':'var(--red)'}">${pct.toFixed(1)}%</span>
+     <span class="result-meta">${attend} attended out of ${total} total</span>
+     <div style="margin-top:10px;font-size:0.83rem">${advice}</div>`,
+    ok ? 'ok' : 'err'
+  );
+}
+
+function resetAtt() {
+  ['att-total','att-attend'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('att-min').value = '75';
+  document.getElementById('att-res').className = 'result-box';
+  document.getElementById('att-bar-wrap').style.display = 'none';
+}
+
+/* ============================================================
+   6. UNIT CONVERTER
+============================================================ */
+function dbmToW() {
+  const v = parseFloat(document.getElementById('dbm-in').value);
+  if (isNaN(v)) return showRes('dbm-res', '⚠️ Enter a valid dBm value.', 'err');
+  const W = Math.pow(10, v/10) / 1000;
+  let ws;
+  if (W >= 1)     ws = W.toFixed(4) + ' W';
+  else if (W >= 1e-3) ws = (W*1e3).toFixed(4) + ' mW';
+  else            ws = (W*1e6).toFixed(4) + ' µW';
+  showRes('dbm-res',
+    `<span class="big-num" style="color:var(--gold)">${v} dBm = ${ws}</span>
+     <span class="result-meta">P(mW) = 10^(${v}/10) = ${(W*1000).toFixed(4)} mW</span>`,
+    'gold'
+  );
+}
+
+function wToDbm() {
+  const v = parseFloat(document.getElementById('watt-in').value);
+  if (isNaN(v) || v <= 0) return showRes('dbm-res', '⚠️ Enter a valid positive Watt value.', 'err');
+  const dbm = 10 * Math.log10(v * 1000);
+  showRes('dbm-res',
+    `<span class="big-num" style="color:var(--gold)">${v} W = ${dbm.toFixed(3)} dBm</span>
+     <span class="result-meta">dBm = 10 × log₁₀(${v*1000} mW) = ${dbm.toFixed(3)}</span>`,
+    'gold'
+  );
+}
+
+function convertFreq() {
+  const v    = parseFloat(document.getElementById('fconv-val').value);
+  const from = document.getElementById('fconv-from').value;
+  if (isNaN(v) || v < 0) return showRes('freq-res', '⚠️ Enter a valid frequency.', 'err');
+
+  const hz = v * fMul[from];
+  const lines = [
+    `<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text3)">Hz</span><span style="font-family:var(--mono);color:var(--cyan)">${hz.toExponential(4)}</span></div>`,
+    `<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text3)">kHz</span><span style="font-family:var(--mono);color:var(--cyan)">${(hz/1e3).toFixed(6)}</span></div>`,
+    `<div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text3)">MHz</span><span style="font-family:var(--mono);color:var(--cyan)">${(hz/1e6).toFixed(6)}</span></div>`,
+    `<div style="display:flex;justify-content:space-between;padding:5px 0"><span style="color:var(--text3)">GHz</span><span style="font-family:var(--mono);color:var(--cyan)">${(hz/1e9).toFixed(9)}</span></div>`,
+  ];
+  showRes('freq-res', lines.join(''), 'info');
+}
+
+/* ============================================================
+   7. POMODORO TIMER
+============================================================ */
+const CIRC = 2 * Math.PI * 80; // circumference of r=80 circle
+
+let pom = {
+  workMin: 25, breakMin: 5,
+  total: 25*60, remain: 25*60,
+  running: false, isBreak: false,
+  sessions: 0, iv: null,
+};
+
+function pomUpdate() {
+  const m = Math.floor(pom.remain / 60);
+  const s = pom.remain % 60;
+  document.getElementById('timer-time').textContent =
+    String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+
+  const prog = document.getElementById('timer-prog');
+  const ratio = pom.remain / pom.total;
+  prog.style.strokeDashoffset = CIRC * (1 - ratio);
+  prog.style.stroke = pom.isBreak ? 'var(--green)' : 'var(--cyan)';
+  prog.style.filter = pom.isBreak
+    ? 'drop-shadow(0 0 6px var(--green))'
+    : 'drop-shadow(0 0 6px var(--cyan))';
+
+  document.getElementById('timer-mode').textContent =
+    pom.running
+      ? (pom.isBreak ? 'BREAK' : 'FOCUS')
+      : (pom.remain === pom.total ? 'READY' : 'PAUSED');
+}
+
+function pomStart() {
+  if (pom.running) return;
+  pom.running = true;
+  document.getElementById('btn-start').disabled = true;
+  document.getElementById('btn-pause').disabled = false;
+
+  pom.iv = setInterval(() => {
+    pom.remain--;
+    pomUpdate();
+
+    if (pom.remain <= 0) {
+      clearInterval(pom.iv);
+      pom.running = false;
+      document.getElementById('btn-start').disabled = false;
+      document.getElementById('btn-pause').disabled = true;
+
+      if (!pom.isBreak) {
+        pom.sessions++;
+        // Update dots
+        for (let i = 0; i < 4; i++) {
+          document.getElementById('dot' + i).classList.toggle('done', i < (pom.sessions % 4 || (pom.sessions % 4 === 0 && pom.sessions > 0 ? 4 : 0)));
+        }
+        // Reset dots every 4
+        if (pom.sessions % 4 === 0) {
+          for (let i = 0; i < 4; i++) document.getElementById('dot' + i).classList.add('done');
+          setTimeout(() => {
+            for (let i = 0; i < 4; i++) document.getElementById('dot' + i).classList.remove('done');
+          }, 2000);
+        } else {
+          for (let i = 0; i < pom.sessions % 4; i++) document.getElementById('dot' + i).classList.add('done');
+        }
+        pom.isBreak = true;
+      } else {
+        pom.isBreak = false;
+      }
+
+      pom.total  = (pom.isBreak ? pom.breakMin : pom.workMin) * 60;
+      pom.remain = pom.total;
+      pomUpdate();
+    }
+  }, 1000);
+}
+
+function pomPause() {
+  if (!pom.running) return;
+  clearInterval(pom.iv);
+  pom.running = false;
+  document.getElementById('btn-start').disabled = false;
+  document.getElementById('btn-pause').disabled = true;
+  pomUpdate();
+}
+
+function pomReset() {
+  clearInterval(pom.iv);
+  pom.running = false; pom.isBreak = false;
+  pom.total   = pom.workMin * 60;
+  pom.remain  = pom.total;
+  document.getElementById('btn-start').disabled = false;
+  document.getElementById('btn-pause').disabled = true;
+  pomUpdate();
+}
+
+function pomApply() {
+  pom.workMin  = parseInt(document.getElementById('pom-work').value)  || 25;
+  pom.breakMin = parseInt(document.getElementById('pom-break').value) || 5;
+  pomReset();
+}
+
+// Init
+pomUpdate();
+//]]>
+</script>
+</body>
+</html>
